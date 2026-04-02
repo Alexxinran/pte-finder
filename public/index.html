@@ -61,23 +61,24 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--txt);min-
 .search-input::placeholder{color:var(--txt3)}
 .btn-search{padding:12px 24px;background:linear-gradient(135deg,#7c3aed,#6d28d9);color:white;border:none;border-radius:12px;font-size:14px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 4px 16px rgba(109,40,217,0.4);transition:all 0.2s;white-space:nowrap}
 .btn-search:hover{box-shadow:0 4px 22px rgba(109,40,217,0.65);transform:translateY(-1px)}
+.btn-search:disabled{opacity:0.5;cursor:not-allowed;transform:none}
 
-.autocomplete{position:absolute;top:100%;left:0;right:0;background:var(--card2);border:0.5px solid var(--border2);border-radius:10px;z-index:10;margin-top:4px;max-height:220px;overflow-y:auto;box-shadow:0 8px 24px rgba(0,0,0,0.5)}
-.ac-item{padding:10px 14px;font-size:14px;cursor:pointer;color:var(--txt);border-bottom:0.5px solid var(--border)}
-.ac-item:last-child{border-bottom:none}
-.ac-item:hover{background:rgba(167,139,250,0.08)}
-.ac-sub{font-size:12px;color:var(--txt3);margin-top:2px}
-
-.results-area{margin-top:0}
-.school-card{background:var(--card);border:0.5px solid var(--border);border-radius:16px;margin-bottom:12px;overflow:hidden;transition:border-color 0.2s}
+/* 结果卡片 */
+.school-card{background:var(--card);border:0.5px solid var(--border);border-radius:16px;margin-bottom:16px;overflow:hidden;transition:border-color 0.2s;animation:fadeUp 0.4s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .school-card:hover{border-color:var(--border2)}
-.school-head{padding:14px 18px;display:flex;align-items:center;gap:12px;border-bottom:0.5px solid var(--border);background:var(--card2)}
+.school-head{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid var(--border);background:var(--card2)}
+.school-head-left{display:flex;align-items:center;gap:12px}
 .sflag{font-size:22px}
 .sname{font-family:'Syne',sans-serif;font-size:16px;font-weight:600;background:linear-gradient(90deg,#e8e0ff,#c4b5fd);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .sname-en{font-size:13px;color:var(--txt3);margin-top:2px}
+.src-btn{font-size:12px;color:var(--p4);text-decoration:none;border:0.5px solid rgba(167,139,250,0.25);border-radius:999px;padding:4px 12px;white-space:nowrap;flex-shrink:0}
+.src-btn:hover{border-color:var(--p4)}
+
+.general-note{padding:10px 18px;font-size:13px;color:var(--txt3);border-bottom:0.5px solid var(--border);background:rgba(124,58,237,0.04);font-style:italic}
 
 .prog-wrap{overflow-x:auto}
-table.ptab{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
+table.ptab{width:100%;border-collapse:collapse;font-size:14px;min-width:580px}
 .ptab th{padding:9px 16px;text-align:left;font-size:11px;font-weight:500;color:var(--txt3);background:rgba(255,255,255,0.015);border-bottom:0.5px solid var(--border);letter-spacing:0.05em;text-transform:uppercase}
 .ptab td{padding:12px 16px;border-bottom:0.5px solid var(--border);vertical-align:middle;color:var(--txt)}
 .ptab tr:last-child td{border-bottom:none}
@@ -93,25 +94,24 @@ table.ptab{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
 .badge.unk .badge-dot{background:#888780}
 
 .score-big{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;background:linear-gradient(135deg,#ddd6fe,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.score-note{font-size:11px;color:var(--txt3);margin-top:3px;line-height:1.4}
 .score-parts{font-size:12px;color:var(--txt3);margin-top:3px}
-.src-link{font-size:12px;color:var(--p4);text-decoration:none}
-.src-link:hover{color:var(--p3);text-decoration:underline}
 .upd{font-size:12px;color:var(--txt3)}
 
+/* 状态 */
 .state-box{text-align:center;padding:3rem 1rem;color:var(--txt3);font-size:15px}
 .state-icon{font-size:32px;margin-bottom:12px;opacity:0.4}
-.loading-dots{display:inline-flex;gap:4px;vertical-align:middle;margin-left:6px}
-.loading-dots span{width:6px;height:6px;background:var(--p4);border-radius:50%;animation:blink 1.2s ease-in-out infinite}
-.loading-dots span:nth-child(2){animation-delay:0.2s}
-.loading-dots span:nth-child(3){animation-delay:0.4s}
-@keyframes blink{0%,100%{opacity:0.2}50%{opacity:1}}
+.loading-wrap{text-align:center;padding:2.5rem 1rem}
+.loading-ring{width:40px;height:40px;border:3px solid rgba(167,139,250,0.15);border-top-color:var(--p4);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading-text{font-size:14px;color:var(--txt2)}
+.loading-sub{font-size:12px;color:var(--txt3);margin-top:6px}
 
-/* ── 悬浮机器人 ── */
+/* 悬浮机器人 */
 .bot-wrap{position:fixed;bottom:28px;right:28px;display:flex;flex-direction:column;align-items:flex-end;gap:10px;z-index:999}
-
 .bot-tooltip{background:linear-gradient(135deg,#7c3aed,#6d28d9);color:white;font-size:13px;font-weight:500;padding:7px 14px;border-radius:999px;white-space:nowrap;box-shadow:0 4px 16px rgba(109,40,217,0.5);opacity:0;transform:translateX(8px);transition:all 0.25s;pointer-events:none;font-family:'DM Sans',sans-serif}
-.bot-btn{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#a78bfa);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(109,40,217,0.55);transition:box-shadow 0.2s,transform 0.2s;animation:botbob 3s ease-in-out infinite}
-.bot-btn:hover{transform:scale(1.08) !important;box-shadow:0 6px 28px rgba(109,40,217,0.75);animation:none}
+.bot-btn{width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#a78bfa);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(109,40,217,0.55);transition:box-shadow 0.2s;animation:botbob 3s ease-in-out infinite}
+.bot-btn:hover{animation:none;transform:scale(1.08);box-shadow:0 6px 28px rgba(109,40,217,0.75)}
 .bot-btn svg{width:26px;height:26px;fill:white}
 .bot-trigger:hover .bot-tooltip{opacity:1;transform:translateX(0)}
 @keyframes botbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
@@ -119,20 +119,17 @@ table.ptab{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
 .chat-window{width:310px;background:#0f0b20;border:0.5px solid rgba(167,139,250,0.25);border-radius:18px;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,0.65);display:none;flex-direction:column}
 .chat-window.open{display:flex;animation:popUp 0.2s ease}
 @keyframes popUp{from{opacity:0;transform:scale(0.92) translateY(8px)}to{opacity:1;transform:scale(1) translateY(0)}}
-
 .chat-header{padding:12px 16px;background:linear-gradient(135deg,rgba(124,58,237,0.35),rgba(109,40,217,0.2));border-bottom:0.5px solid rgba(167,139,250,0.15);display:flex;align-items:center;justify-content:space-between}
 .chat-header-left{display:flex;align-items:center;gap:8px}
 .chat-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#a78bfa);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .chat-avatar svg{width:16px;height:16px;fill:white}
 .chat-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:600;color:var(--txt)}
 .chat-subtitle{font-size:11px;color:var(--txt3);margin-top:1px}
-.chat-close{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.06);border:none;cursor:pointer;color:var(--txt3);font-size:14px;display:flex;align-items:center;justify-content:center;transition:all 0.15s;flex-shrink:0}
+.chat-close{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.06);border:none;cursor:pointer;color:var(--txt3);font-size:14px;display:flex;align-items:center;justify-content:center;transition:all 0.15s}
 .chat-close:hover{background:rgba(255,255,255,0.12);color:var(--txt)}
-
 .chat-messages{padding:14px 12px;display:flex;flex-direction:column;gap:10px;max-height:300px;overflow-y:auto;min-height:100px}
 .chat-messages::-webkit-scrollbar{width:3px}
 .chat-messages::-webkit-scrollbar-thumb{background:rgba(167,139,250,0.2);border-radius:3px}
-
 .msg{max-width:90%;font-size:13px;line-height:1.6;padding:8px 12px;border-radius:12px;word-break:break-word}
 .msg.bot{background:rgba(124,58,237,0.15);border:0.5px solid rgba(167,139,250,0.15);color:#c4b5fd;align-self:flex-start;border-bottom-left-radius:4px}
 .msg.user{background:linear-gradient(135deg,#7c3aed,#6d28d9);color:white;align-self:flex-end;border-bottom-right-radius:4px}
@@ -141,7 +138,6 @@ table.ptab{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
 .typing-dot:nth-child(2){animation-delay:0.2s}
 .typing-dot:nth-child(3){animation-delay:0.4s}
 @keyframes tdot{0%,100%{opacity:0.3;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
-
 .chat-input-row{display:flex;gap:6px;padding:10px 12px;border-top:0.5px solid rgba(167,139,250,0.1)}
 .chat-input{flex:1;padding:8px 12px;border:0.5px solid rgba(167,139,250,0.2);border-radius:999px;font-size:13px;background:rgba(255,255,255,0.04);color:var(--txt);outline:none;font-family:'DM Sans',sans-serif}
 .chat-input::placeholder{color:var(--txt3)}
@@ -151,13 +147,11 @@ table.ptab{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
 .chat-send svg{width:14px;height:14px;fill:white}
 
 .fade-in{animation:fadeUp 0.5s ease both}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .d1{animation-delay:0.08s}.d2{animation-delay:0.18s}.d3{animation-delay:0.3s}.d4{animation-delay:0.42s}
 </style>
 </head>
 <body>
 <div class="wrap">
-
   <div class="topbar fade-in">
     <div class="logo">
       <div class="logo-mark">
@@ -175,7 +169,7 @@ table.ptab{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
     <div class="hero-title"><span class="g1">PTE 分数</span><br><span class="g2">查询工具</span></div>
     <div class="hero-byline">crafted by <b>Alexli</b></div>
     <div class="glow-line"></div>
-    <div class="hero-desc">覆盖英国、澳大利亚、新西兰、加拿大<br>主流院校与移民项目，数据直连官网</div>
+    <div class="hero-desc">AI 实时查询，直连官网数据<br>覆盖全球主流院校与移民项目</div>
   </div>
 
   <div class="fade-in d2">
@@ -195,13 +189,15 @@ table.ptab{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
   </div>
 
   <div class="fade-in d3">
-    <div class="step-row"><div class="step-num">2</div><div class="step-lbl">选择目标国家</div></div>
+    <div class="step-row"><div class="step-num">2</div><div class="step-lbl">选择目标国家（可选）</div></div>
     <div class="country-row">
       <div class="c-pill active" onclick="setCountry('all',this)">🌏 全部</div>
       <div class="c-pill" onclick="setCountry('uk',this)">🇬🇧 英国</div>
       <div class="c-pill" onclick="setCountry('au',this)">🇦🇺 澳大利亚</div>
       <div class="c-pill" onclick="setCountry('nz',this)">🇳🇿 新西兰</div>
       <div class="c-pill" onclick="setCountry('ca',this)">🇨🇦 加拿大</div>
+      <div class="c-pill" onclick="setCountry('sg',this)">🇸🇬 新加坡</div>
+      <div class="c-pill" onclick="setCountry('hk',this)">🇭🇰 香港</div>
     </div>
   </div>
 
@@ -210,21 +206,19 @@ table.ptab{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
     <div class="search-box">
       <div class="ac-wrap">
         <input id="searchInput" class="search-input" type="text"
-          placeholder="输入院校名称，支持中英文（如"谢菲"、"Melbourne"）"
-          oninput="onInput()" onkeydown="onKey(event)" autocomplete="off"/>
-        <div class="autocomplete" id="acList" style="display:none"></div>
+          placeholder="输入院校或项目名称，支持中英文（如"谢菲"、"Melbourne"、"澳洲189"）"
+          onkeydown="if(event.key==='Enter')doSearch()" autocomplete="off"/>
       </div>
-      <button class="btn-search" onclick="doSearch()">搜索</button>
+      <button class="btn-search" id="searchBtn" onclick="doSearch()">搜索</button>
     </div>
   </div>
 
-  <div class="results-area" id="results">
+  <div id="results">
     <div class="state-box">
       <div class="state-icon">🔍</div>
-      <div>请选择场景和国家，然后搜索院校</div>
+      <div>输入院校或移民项目名称，AI 将实时查询官网数据</div>
     </div>
   </div>
-
 </div>
 
 <!-- 悬浮机器人 -->
@@ -254,7 +248,6 @@ table.ptab{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
       </button>
     </div>
   </div>
-
   <div class="bot-trigger" style="display:flex;align-items:center;gap:10px">
     <div class="bot-tooltip">不确定？就点我</div>
     <button class="bot-btn" onclick="toggleChat()">
@@ -264,103 +257,116 @@ table.ptab{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
 </div>
 
 <script>
-let cat = 'study', country = 'all', acData = [], chatHistory = [];
+let cat = 'study', country = 'all', chatHistory = [];
 
 function setCat(c, el) {
   cat = c;
   document.querySelectorAll('.cat-card').forEach(x => x.classList.remove('active'));
   el.classList.add('active');
-  clearResults();
 }
 function setCountry(c, el) {
   country = c;
   document.querySelectorAll('.c-pill').forEach(x => x.classList.remove('active'));
   el.classList.add('active');
-  clearResults();
-}
-function clearResults() {
-  document.getElementById('results').innerHTML = '<div class="state-box"><div class="state-icon">🔍</div><div>请搜索院校名称开始查询</div></div>';
-  document.getElementById('acList').style.display = 'none';
-  document.getElementById('searchInput').value = '';
-}
-
-async function onInput() {
-  const q = document.getElementById('searchInput').value.trim();
-  if (!q) { document.getElementById('acList').style.display = 'none'; return; }
-  try {
-    const r = await fetch('/api/search', {
-      method: 'POST', headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ query: q, category: cat, country })
-    });
-    const d = await r.json();
-    acData = d.results || [];
-    const ac = document.getElementById('acList');
-    if (!acData.length) { ac.style.display = 'none'; return; }
-    ac.innerHTML = acData.map((s, i) =>
-      `<div class="ac-item" onclick="pickAC(${i})">
-        <div>${s.nameZh}</div><div class="ac-sub">${s.name}</div>
-      </div>`).join('');
-    ac.style.display = 'block';
-  } catch(e) {}
-}
-
-function pickAC(i) {
-  document.getElementById('searchInput').value = acData[i].nameZh;
-  document.getElementById('acList').style.display = 'none';
-  renderResults([acData[i]]);
-}
-function onKey(e) {
-  if (e.key === 'Enter') doSearch();
-  if (e.key === 'Escape') document.getElementById('acList').style.display = 'none';
 }
 
 async function doSearch() {
   const q = document.getElementById('searchInput').value.trim();
   if (!q) return;
-  document.getElementById('acList').style.display = 'none';
-  document.getElementById('results').innerHTML = '<div class="state-box">查询中<span class="loading-dots"><span></span><span></span><span></span></span></div>';
+
+  const btn = document.getElementById('searchBtn');
+  btn.disabled = true;
+
+  document.getElementById('results').innerHTML = `
+    <div class="loading-wrap">
+      <div class="loading-ring"></div>
+      <div class="loading-text">AI 正在查询官网数据…</div>
+      <div class="loading-sub">通义千问实时搜索中，请稍候</div>
+    </div>`;
+
   try {
     const r = await fetch('/api/search', {
-      method: 'POST', headers: {'Content-Type':'application/json'},
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ query: q, category: cat, country })
     });
     const d = await r.json();
-    if (d.results && d.results.length) { renderResults(d.results); return; }
-    const r2 = await fetch('/api/ai-search', {
-      method: 'POST', headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({ query: q, category: cat, country })
-    });
-    const d2 = await r2.json();
-    renderResults(d2.results || []);
+
+    if (d.error) { renderError(d.error); return; }
+    if (!d.results || !d.results.length) { renderEmpty(); return; }
+    renderResults(d.results);
   } catch(e) {
-    document.getElementById('results').innerHTML = '<div class="state-box">网络错误，请刷新重试</div>';
+    renderError('网络错误，请检查连接后重试');
+  } finally {
+    btn.disabled = false;
   }
 }
 
+function renderEmpty() {
+  document.getElementById('results').innerHTML =
+    '<div class="state-box"><div class="state-icon">🔍</div><div>未找到相关结果，请尝试其他关键词</div></div>';
+}
+function renderError(msg) {
+  document.getElementById('results').innerHTML =
+    `<div class="state-box"><div class="state-icon">⚠️</div><div>${msg}</div></div>`;
+}
+
+function acceptBadge(accept) {
+  if (accept === true)  return '<span class="badge yes"><span class="badge-dot"></span>接受</span>';
+  if (accept === false) return '<span class="badge no"><span class="badge-dot"></span>不接受</span>';
+  return '<span class="badge unk"><span class="badge-dot"></span>无官方信息</span>';
+}
+
+function scoreCell(p) {
+  if (!p.overall && p.accept !== true) return '—';
+  let html = '';
+  if (p.overall) html += `<div class="score-big">${p.overall}</div>`;
+  if (p.overallNote) html += `<div class="score-note">${p.overallNote}</div>`;
+  return html || '—';
+}
+
+function componentCell(p) {
+  if (p.accept !== true) return '—';
+  if (!p.reading && !p.writing && !p.componentNote) return '—';
+  let parts = [];
+  if (p.reading)   parts.push(`R:${p.reading}`);
+  if (p.writing)   parts.push(`W:${p.writing}`);
+  if (p.listening) parts.push(`L:${p.listening}`);
+  if (p.speaking)  parts.push(`S:${p.speaking}`);
+  let html = parts.length ? `<div class="score-parts">${parts.join(' ')}</div>` : '';
+  if (p.componentNote) html += `<div class="score-note">${p.componentNote}</div>`;
+  return html || '—';
+}
+
 function renderResults(list) {
-  if (!list.length) {
-    document.getElementById('results').innerHTML = '<div class="state-box"><div class="state-icon">🔍</div><div>未找到匹配结果，请尝试其他关键词</div></div>';
-    return;
-  }
   document.getElementById('results').innerHTML = list.map(s => `
     <div class="school-card">
       <div class="school-head">
-        <span class="sflag">${s.flag}</span>
-        <div><div class="sname">${s.nameZh}</div><div class="sname-en">${s.name}</div></div>
+        <div class="school-head-left">
+          <span class="sflag">${s.flag}</span>
+          <div>
+            <div class="sname">${s.nameZh}</div>
+            <div class="sname-en">${s.name}</div>
+          </div>
+        </div>
+        ${s.sourceUrl ? `<a class="src-btn" href="${s.sourceUrl}" target="_blank">官网 →</a>` : ''}
       </div>
+      ${s.generalNote ? `<div class="general-note">💡 ${s.generalNote}</div>` : ''}
       <div class="prog-wrap">
         <table class="ptab">
-          <thead><tr><th>层次</th><th>项目</th><th>接受 PTE</th><th>总分</th><th>单项要求</th><th>更新</th><th>来源</th></tr></thead>
-          <tbody>${s.programs.map(p => `
-            <tr>
-              <td>${p.level}</td>
-              <td>${p.name}</td>
-              <td>${p.accept===true?'<span class="badge yes"><span class="badge-dot"></span>接受</span>':p.accept===false?'<span class="badge no"><span class="badge-dot"></span>不接受</span>':'<span class="badge unk"><span class="badge-dot"></span>无信息</span>'}</td>
-              <td>${p.accept&&p.overall?`<div class="score-big">${p.overall}</div>`:'—'}</td>
-              <td>${p.accept&&p.reading?`<div class="score-parts">R:${p.reading} W:${p.writing} L:${p.listening} S:${p.speaking}</div>`:'—'}</td>
-              <td><span class="upd">${p.updated||'—'}</span></td>
-              <td><a class="src-link" href="${p.src}" target="_blank">官网 →</a></td>
-            </tr>`).join('')}
+          <thead>
+            <tr><th>层次</th><th>项目/专业类别</th><th>接受 PTE</th><th>总分</th><th>单项要求</th><th>数据来源</th></tr>
+          </thead>
+          <tbody>
+            ${s.programs.map(p => `
+              <tr>
+                <td>${p.level}</td>
+                <td>${p.name}</td>
+                <td>${acceptBadge(p.accept)}</td>
+                <td>${scoreCell(p)}</td>
+                <td>${componentCell(p)}</td>
+                <td><span class="upd">${p.updated || '—'}</span></td>
+              </tr>`).join('')}
           </tbody>
         </table>
       </div>
@@ -385,9 +391,8 @@ async function sendMsg() {
   userDiv.textContent = q;
   msgs.appendChild(userDiv);
   input.value = '';
-  msgs.scrollTop = msgs.scrollHeight;
-
   chatHistory.push({ role: 'user', content: q });
+  msgs.scrollTop = msgs.scrollHeight;
 
   const typing = document.createElement('div');
   typing.className = 'msg bot typing';
@@ -397,12 +402,12 @@ async function sendMsg() {
 
   try {
     const r = await fetch('/api/chat', {
-      method: 'POST', headers: {'Content-Type':'application/json'},
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ messages: chatHistory })
     });
     const d = await r.json();
     msgs.removeChild(typing);
-    const reply = d.reply || '抱歉，暂时无法回答，请稍后再试。';
+    const reply = d.reply || '抱歉，暂时无法回答。';
     chatHistory.push({ role: 'assistant', content: reply });
     const botDiv = document.createElement('div');
     botDiv.className = 'msg bot';
@@ -412,15 +417,11 @@ async function sendMsg() {
     msgs.removeChild(typing);
     const botDiv = document.createElement('div');
     botDiv.className = 'msg bot';
-    botDiv.textContent = '连接失败，请检查网络后重试。';
+    botDiv.textContent = '连接失败，请稍后再试。';
     msgs.appendChild(botDiv);
   }
   msgs.scrollTop = msgs.scrollHeight;
 }
-
-document.addEventListener('click', e => {
-  if (!e.target.closest('.ac-wrap')) document.getElementById('acList').style.display = 'none';
-});
 </script>
 </body>
 </html>
