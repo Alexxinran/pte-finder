@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const fetch = require('node-fetch');
 const path = require('path');
+// Fixed v2.1 - enable_search + robust JSON parsing
 
 const app = express();
 app.use(cors());
@@ -72,34 +73,40 @@ ${countryLabel}
       body: JSON.stringify({
         model: 'qwen-plus',
         max_tokens: 2000,
-        messages: [{ role: 'user', content: prompt }],
-        tools: [{
-          type: 'web_search',
-          web_search: { search_query: `${query} PTE Academic score requirements official` }
-        }]
+        enable_search: true,
+        messages: [{ role: 'user', content: prompt }]
       })
     });
 
     const data = await response.json();
+    console.log('API status:', response.status);
+    console.log('API response (truncated):', JSON.stringify(data).slice(0, 600));
 
     if (data.error) {
       console.error('Qwen API error:', data.error);
       return res.status(500).json({ error: data.error.message });
     }
 
-    // 提取文本内容
-    const content = data.choices?.[0]?.message?.content || '';
-    console.log('AI raw response:', content);
+    // 提取文本内容（兼容多种响应格式）
+    let content = '';
+    const msg = data.choices?.[0]?.message;
+    if (typeof msg?.content === 'string') {
+      content = msg.content;
+    } else if (Array.isArray(msg?.content)) {
+      content = msg.content.map(c => c.text || '').join('');
+    }
+    console.log('Content:', content.slice(0, 800));
 
-    // 解析 JSON
+    // 解析 JSON — 去掉 markdown 代码块，找最外层 {}
     let parsed;
     try {
-      const jsonMatch = content.match(/\{[\s\S]*\}/);
-      if (!jsonMatch) throw new Error('No JSON found');
+      const cleaned = content.replace(/```json\s*/gi, '').replace(/```\s*/g, '').trim();
+      const jsonMatch = cleaned.match(/\{[\s\S]*\}/);
+      if (!jsonMatch) throw new Error('No JSON object found');
       parsed = JSON.parse(jsonMatch[0]);
     } catch (e) {
-      console.error('JSON parse error:', e.message);
-      return res.json({ results: [], rawContent: content, parseError: true });
+      console.error('JSON parse error:', e.message, '| raw:', content.slice(0, 400));
+      return res.json({ results: [], debug: content.slice(0, 500) });
     }
 
     // 标准化数据结构
